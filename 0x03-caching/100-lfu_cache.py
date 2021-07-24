@@ -11,7 +11,7 @@ class LFUCache(BaseCaching):
     """
     def __init__(self):
         super().__init__()
-        self.LRU_list = [0 for _ in range(super().MAX_ITEMS)]
+        self.LFU_list = [0 for _ in range(super().MAX_ITEMS)]
 
     def put(self, key, item):
         """[summary]
@@ -25,13 +25,13 @@ class LFUCache(BaseCaching):
         keys_list = list(self.cache_data.keys())
         if len(keys_list) == super().MAX_ITEMS:
             if key in keys_list:
-                self.LRU_list[keys_list.index(key)] += 1
+                self.LFU_list[keys_list.index(key)] += 1
             else:
-                k = self.LRU_list.index(min(self.LRU_list))
+                k = self.LFU_list.index(min(self.LFU_list))
                 print(f"DISCARD: {keys_list[k]}")
                 del self.cache_data[keys_list[k]]
-                del self.LRU_list[k]
-                self.LRU_list.append(1)
+                del self.LFU_list[k]
+                self.LFU_list.append(1)
         self.cache_data[key] = item
 
     def get(self, key):
@@ -46,5 +46,5 @@ class LFUCache(BaseCaching):
         if key is None or key not in self.cache_data.keys():
             return None
         keys_list = list(self.cache_data.keys())
-        self.LRU_list[keys_list.index(key)] += 1
+        self.LFU_list[keys_list.index(key)] += 1
         return self.cache_data[key]
