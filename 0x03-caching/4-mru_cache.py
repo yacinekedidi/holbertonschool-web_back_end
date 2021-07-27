@@ -31,7 +31,8 @@ class MRUCache(BaseCaching):
                 print(f"DISCARD: {keys_list[k]}")
                 del self.cache_data[keys_list[k]]
                 del self.MRU_list[k]
-                self.MRU_list.append(max(self.MRU_list) + 1)
+                self.MRU_list.append(max(self.MRU_list) + 1
+                                     if len(self.MRU_list) > 0 else 0)
         self.cache_data[key] = item
 
     def get(self, key):
