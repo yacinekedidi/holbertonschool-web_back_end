@@ -31,7 +31,8 @@ class LRUCache(BaseCaching):
                 print(f"DISCARD: {keys_list[k]}")
                 del self.cache_data[keys_list[k]]
                 del self.LRU_list[k]
-                self.LRU_list.append(max(self.LRU_list) + 1)
+                self.LRU_list.append(max(self.LRU_list) + 1
+                                     if len(self.LRU_list) > 0 else 0)
         self.cache_data[key] = item
 
     def get(self, key):
