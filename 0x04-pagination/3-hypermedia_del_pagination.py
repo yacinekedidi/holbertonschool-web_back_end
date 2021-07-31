@@ -52,7 +52,7 @@ class Server:
         data = self.indexed_dataset()
         assert index <= len(data)
         i = index
-        while (data.get(i) is None):
+        while (data.get(i) is None and i <= len(data)):
             i += 1
         return {
             "index": index,
