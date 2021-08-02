@@ -89,10 +89,11 @@ def main():
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
-    for row in cursor:
-        message = f"name={row[0]}; email={row[1]}; phone={row[2]}; \
-            ssn={row[3]} password={row[4]}; ip={row[5]}; last_login={row[6]}; \
-                user_agent={row[7]};"
+    values = cursor.fetchall()
+    for value in values:
+        message = f"name={value[0]}; email={value[1]}; phone={value[2]}; \
+            ssn={value[3]} password={value[4]}; ip={value[5]}; \
+                last_login={value[6]}; user_agent={value[7]};"
         log_record = logging.LogRecord("my_logger", logging.INFO, None, None,
                                        message, None, None)
         RedactingFormatter(PII_FIELDS).format(log_record)
