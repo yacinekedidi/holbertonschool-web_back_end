@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """[Module]"""
-from typing import ByteString
 import bcrypt
 
 
-def hash_password(password: str) -> ByteString:
+def hash_password(password: str) -> bytes:
     """[summary]
     """
     return bcrypt.hashpw(str.encode(password), bcrypt.gensalt())
