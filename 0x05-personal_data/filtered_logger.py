@@ -23,7 +23,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
             re.sub(i.split('=')[1], redaction, i)
             if i.split('=')[0] in fields
             else i
-            for c, i in enumerate(msg_list)
+            for i in msg_list
         )
         + ';'
     )
