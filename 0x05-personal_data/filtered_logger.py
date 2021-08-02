@@ -9,13 +9,14 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     """[summary]
 
     Args:
-        fields (List[str]): [description]
-        redaction (str): [description]
-        message (str): [description]
-        separator (str): [description]
+        fields (List[str]): [representing all fields to obfuscate]
+        redaction (str): [representing by what the field will be obfuscated]
+        message (str): [representing the log line]
+        separator (str): [ representing by which character is separating
+        all fields in the log line]
 
     Returns:
-        str: [description]
+        str: [the log message obfuscated:]
     """
     return (
         ';'.join(
