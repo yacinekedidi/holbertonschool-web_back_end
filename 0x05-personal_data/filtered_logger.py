@@ -2,6 +2,7 @@
 """[filtered_logger Module]"""
 from typing import List
 import re
+import logging
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
@@ -18,11 +19,32 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     Returns:
         str: [the log message obfuscated:]
     """
-    return (
-        ';'.join(
-            re.sub('=.*', f"={redaction}", i)
-            if i and i.split('=')[0] in fields
-            else i
-            for i in message.split(separator)
-        )
-    )
+    for f in fields:
+        message = re.sub(f'{f}=.*?{separator}', f"{f}={redaction}{separator}",
+                         message)
+    return message
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+        """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields):
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """[summary]
+
+        Args:
+            record (logging.LogRecord): [description]
+
+        Returns:
+            str: [description]
+        """
+        return filter_datum(self.fields, self.REDACTION,
+                            super().format(record), self.SEPARATOR)
