@@ -20,7 +20,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     msg_list = message.split(separator)[:-1]
     return (
         ';'.join(
-            re.sub(i.split('=')[1], redaction, i)
+            re.sub('=.*', '=' + redaction, i)
             if i.split('=')[0] in fields
             else i
             for i in msg_list
