@@ -17,11 +17,8 @@ def filter_datum(fields: List[str], redaction: str, message: str,
     Returns:
         str: [description]
     """
-    msg_list = message.split(separator)
+    msg_list = message.split(separator)[:-1]
     for c, i in enumerate(msg_list):
-        try:
-            msg_list[c] = re.sub(i[i.index('=') + 1:], redaction, i)\
-                if i[:i.index('=')] in fields else i
-        except ValueError:
-            pass
-    return ';'.join(msg_list)
+        msg_list[c] = re.sub(i.split('=')[1], redaction, i)\
+            if i.split('=')[0] in fields else i
+    return ';'.join(msg_list) + ';'
