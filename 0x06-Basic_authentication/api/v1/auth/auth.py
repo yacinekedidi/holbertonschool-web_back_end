@@ -22,7 +22,12 @@ class Auth():
             excluded_paths = [f"{path}/" if path[-1] != '/'
                               else path for path in excluded_paths]
             path = f"{path}/" if path[-1] != '/' else path
-        return path is None or path not in excluded_paths
+
+        if path is None:
+            return True
+        if excluded_paths is None or not len(excluded_paths):
+            return True
+        return path not in excluded_paths
 
     def authorization_header(self, request=None) -> str:
         """[summary]
