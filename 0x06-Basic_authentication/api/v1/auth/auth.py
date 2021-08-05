@@ -18,18 +18,18 @@ class Auth():
         Returns:
             bool: [description]
         """
-        if excluded_paths and path:
-            excluded_paths = [f"{path}/" if path[-1] != '/'
-                              else path for path in excluded_paths]
-            path = f"{path}/" if path[-1] != '/' else path
-
         if path is None:
             return True
         if excluded_paths is None or not len(excluded_paths):
             return True
+        path = f"{path}/" if path[-1] != '/' else path
 
-        for p in excluded_paths:
-            if p.endswith('*/') and path.startswith(p[:-2]):
+        for index, p in enumerate(excluded_paths):
+            if p[-1] != '/':
+                excluded_paths[index] = f"{p}/"
+
+            if excluded_paths[index].endswith('*/') and \
+                    path.startswith(excluded_paths[index][:-2]):
                 return False
 
         return path not in excluded_paths
