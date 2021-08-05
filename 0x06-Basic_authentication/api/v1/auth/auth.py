@@ -38,7 +38,12 @@ class Auth():
         Returns:
             str: [description]
         """
-        return None
+        if request is None:
+            return None
+        try:
+            return request.headers["Authorization"]
+        except Exception:
+            return None
 
     def current_user(self, request=None) -> TypeVar('User'):
         """[summary]
