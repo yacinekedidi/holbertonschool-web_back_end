@@ -91,4 +91,3 @@ class BasicAuth(Auth):
         if not u.is_valid_password(user_pwd):
             return None
         return u
-
