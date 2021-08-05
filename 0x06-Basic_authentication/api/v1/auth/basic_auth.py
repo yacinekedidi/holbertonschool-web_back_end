@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """[Module]"""
 
-from typing import Tuple
+from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
 import base64
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -69,3 +70,25 @@ class BasicAuth(Auth):
             return None, None
         email, password = decoded_base64_authorization_header.split(":")
         return email, password
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """[summary]
+
+        Args:
+            self ([type]): [description]
+        """
+        if user_email is None or type(user_email) is not str:
+            return None
+        if user_pwd is None or type(user_pwd) is not str:
+            return None
+
+        user = User()
+        u_list = user.search({"email": user_email})
+        if not len(u_list):
+            return None
+        u = u_list[0]
+        if not u.is_valid_password(user_pwd):
+            return None
+        return u
+
