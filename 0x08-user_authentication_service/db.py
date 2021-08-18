@@ -89,7 +89,5 @@ class DB:
                     or k == "_sa_instance_state":
                 raise ValueError
             setattr(user, k, v)
-            session = self._session
-            session.add(user)
-            session.commit()
+        self._session.commit()
         return None
