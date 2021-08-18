@@ -84,6 +84,8 @@ class DB:
             [type]: [description]
         """
         user = self.find_user_by(id=user_id)
+        if not user:
+            return None
         for k, v in kwargs.items():
             if k not in user.__dict__.keys():
                 raise ValueError
