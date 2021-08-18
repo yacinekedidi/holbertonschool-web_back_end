@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import session
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
@@ -69,3 +70,26 @@ class DB:
         if not u:
             raise NoResultFound
         return u
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """[summary]
+
+        Args:
+            user_id (int): [description]
+
+        Raises:
+            ValueError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        user = self.find_user_by(id=user_id)
+        for k, v in kwargs.items():
+            if k not in user.__dict__.keys()\
+                    or k == "_sa_instance_state":
+                raise ValueError
+            setattr(user, k, v)
+            session = self._session
+            session.add(user)
+            session.commit()
+        return None
