@@ -83,7 +83,8 @@ class DB:
         Returns:
             [type]: [description]
         """
-        if not user_id or type(user_id) is not int:
+        if not user_id or type(user_id) is not int\
+                or not kwargs:
             return None
         user = self.find_user_by(id=user_id)
         if not user:
