@@ -85,8 +85,7 @@ class DB:
         """
         user = self.find_user_by(id=user_id)
         for k, v in kwargs.items():
-            if k not in user.__dict__.keys()\
-                    or k == "_sa_instance_state":
+            if k not in user.__dict__.keys():
                 raise ValueError
             setattr(user, k, v)
         self._session.commit()
