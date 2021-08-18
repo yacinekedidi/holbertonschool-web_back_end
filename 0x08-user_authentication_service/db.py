@@ -90,8 +90,7 @@ class DB:
         if not user:
             return None
         for k, v in kwargs.items():
-            if k not in user.__dict__.keys()\
-                    or k == "_sa_instance_state":
+            if k not in User.__table__.columns.keys():
                 raise ValueError
             setattr(user, k, v)
         self._session.commit()
