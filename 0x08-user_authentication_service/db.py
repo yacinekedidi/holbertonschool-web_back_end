@@ -83,11 +83,14 @@ class DB:
         Returns:
             [type]: [description]
         """
+        if not user_id or type(user_id) is not int:
+            return None
         user = self.find_user_by(id=user_id)
         if not user:
             return None
         for k, v in kwargs.items():
-            if k not in user.__dict__.keys():
+            if k not in user.__dict__.keys()\
+                    or k == "_sa_instance_state":
                 raise ValueError
             setattr(user, k, v)
         self._session.commit()
