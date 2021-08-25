@@ -10,8 +10,7 @@ from typing import (
     Callable,
 )
 from unittest.mock import Mock, patch
-from utils import get_json
-from utils import access_nested_map
+from utils import get_json, access_nested_map, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -71,3 +70,27 @@ class TestGetJson(unittest.TestCase):
         with patch("requests.get", return_value=m) as p:
             self.assertEqual(get_json(test_url), test_payload)
             p.method.asset_called_once()
+
+
+class TestMemoize(unittest.TestCase):
+    """[TestMMemoize class]
+    """
+    def test_memoize(self):
+        """[summary]
+
+        Returns:
+            [type]: [description]
+        """
+        class TestClass:
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+        with patch.object(TestClass, 'a_method') as m:
+            m.return_value = 42
+            test = TestClass()
+            self.assertEqual(test.a_property, m.return_value)
+            self.assertEqual(test.a_property, m.return_value)
+            m.assert_called_once()
