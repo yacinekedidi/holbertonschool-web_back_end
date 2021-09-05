@@ -1,8 +1,29 @@
 #!/usr/bin/env python3
+from functools import wraps
 from typing import Callable, Optional, Union
 import redis
 import uuid
-import sys
+
+
+def count_calls(method: Callable) -> Callable:
+    """[summary]
+
+    Args:
+        method (Callable): [description]
+
+    Returns:
+        Callable: [description]
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """[wrapper]
+
+        Returns:
+            [type]: [description]
+        """
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache():
@@ -12,6 +33,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """[summary]
 
