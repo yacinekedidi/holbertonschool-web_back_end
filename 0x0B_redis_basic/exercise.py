@@ -41,7 +41,7 @@ class Cache():
         """[summary]
 
         Args:
-            data (bytes): [description]
+            key (str): [description]
 
         Returns:
             [type]: [description]
@@ -52,7 +52,7 @@ class Cache():
         """[summary]
 
         Args:
-            data (bytes): [description]
+            key (int): [description]
 
         Returns:
             [type]: [description]
