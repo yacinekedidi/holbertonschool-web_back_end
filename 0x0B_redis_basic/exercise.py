@@ -65,8 +65,11 @@ def replay(method: Callable):
     inputs = r.lrange(inputs_key, 0, -1)
     outputs = r.lrange(outputs_key, 0, -1)
     for inp, out in zip(inputs, outputs):
+        o = ""
+        if out:
+            o = f" -> {out.decode('utf-8')}"
         print(
-            f"{method_name}(*{inp.decode('utf-8')}) -> {out.decode('utf-8')}")
+            f"{method_name}(*{inp.decode('utf-8')}){o}")
 
 
 class Cache():
