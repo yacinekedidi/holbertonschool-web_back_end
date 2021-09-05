@@ -49,14 +49,11 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
-def replay(method: Callable) -> Callable:
+def replay(method: Callable):
     """[summary]
 
     Args:
         method (Callable): [description]
-
-    Returns:
-        Callable: [description]
     """
     method_name = method.__qualname__
     inputs_key = f"{method_name}:inputs"
