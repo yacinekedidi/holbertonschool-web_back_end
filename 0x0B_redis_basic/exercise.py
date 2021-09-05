@@ -25,7 +25,7 @@ class Cache():
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable])\
+    def get(self, key: str, fn: Optional[Callable] = None)\
             -> Union[str, bytes, int, float]:
         """[summary]
 
@@ -37,7 +37,7 @@ class Cache():
             return fn(val)
         return val
 
-    def get_str(self, data: bytes):
+    def get_str(self, key: str):
         """[summary]
 
         Args:
@@ -46,9 +46,9 @@ class Cache():
         Returns:
             [type]: [description]
         """
-        return data.decode("utf-8")
+        return self.get(key, str)
 
-    def get_int(self, data: bytes):
+    def get_int(self, key: int):
         """[summary]
 
         Args:
@@ -57,4 +57,4 @@ class Cache():
         Returns:
             [type]: [description]
         """
-        return int.from_bytes(data, sys.byteorder)
+        return self.get(key, int)
