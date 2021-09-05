@@ -32,10 +32,10 @@ class Cache():
         Returns:
             [type]: [description]
         """
-        d = self._redis.get(key)
-        if not fn:
-            return d
-        return fn(d)
+        val = self._redis.get(key)
+        if fn:
+            return fn(val)
+        return val
 
     def get_str(self, data: bytes):
         """[summary]
