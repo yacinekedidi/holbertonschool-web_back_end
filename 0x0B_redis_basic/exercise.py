@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""[summary]"""
 from functools import wraps
 from typing import Callable, Optional, Union
 import redis
@@ -61,7 +62,6 @@ def replay(method: Callable):
     r = method.__self__._redis
     counts = r.get(method_name)
     print(f"{method_name} was called {int(counts)} times")
-
     inputs = r.lrange(inputs_key, 0, -1)
     outputs = r.lrange(outputs_key, 0, -1)
     for inp, out in zip(inputs, outputs):
