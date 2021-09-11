@@ -10,8 +10,6 @@ def main(mongo_collections):
                'DELETE': 0}
     nbr = 0
     res = mongo_collections.find({})
-    if not res:
-        return
     for i in res:
         if i.get("method") in methods:
             methods[i.get("method")] += 1
