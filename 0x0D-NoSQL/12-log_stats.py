@@ -9,8 +9,10 @@ def main(mongo_collections):
                'PUT': 0, 'PATCH': 0,
                'DELETE': 0}
     nbr = 0
-    res = mongo_collections.find()
+    log_nbr = 0
+    res = mongo_collections.find({})
     for i in res:
+        log_nbr += 1
         if i.get("method") in methods:
             methods[i.get("method")] += 1
         if i.get("method") == 'GET' and i.get('path') == '/status':
@@ -18,7 +20,7 @@ def main(mongo_collections):
 
     s = "".join('\tmethod {}: {}\n'.format(k, v) for k, v in methods.items())
     print('{} logs\nMethods:\n{}{} status check'
-          .format(sum(methods.values()), s, nbr))
+          .format(log_nbr, s, nbr))
 
 
 if __name__ == '__main__':
