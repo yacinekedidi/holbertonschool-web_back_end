@@ -26,6 +26,4 @@ if __name__ == '__main__':
     client = MongoClient("mongodb://localhost:27017")
     logs = client.logs
     mongo_collections = logs.nginx
-    if not mongo_collections:
-        return
     main(mongo_collections)
