@@ -9,7 +9,7 @@ def main(mongo_collections):
                'PUT': 0, 'PATCH': 0,
                'DELETE': 0}
     nbr = 0
-    res = mongo_collections.find({})
+    res = mongo_collections.find()
     for i in res:
         if i.get("method") in methods:
             methods[i.get("method")] += 1
