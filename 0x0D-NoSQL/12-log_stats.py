@@ -10,6 +10,8 @@ def main(mongo_collections):
                'DELETE': 0}
     nbr = 0
     res = mongo_collections.find({})
+    if not res:
+        return
     for i in res:
         if i.get("method") in methods:
             methods[i.get("method")] += 1
@@ -26,4 +28,6 @@ if __name__ == '__main__':
     client = MongoClient("mongodb://localhost:27017")
     logs = client.logs
     mongo_collections = logs.nginx
+    if not mongo_collections:
+        return
     main(mongo_collections)
