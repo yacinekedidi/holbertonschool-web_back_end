@@ -27,3 +27,4 @@ if __name__ == '__main__':
     logs = client.logs
     mongo_collections = logs.nginx
     main(mongo_collections)
+    client.close()
