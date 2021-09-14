@@ -6,7 +6,7 @@ export default async function handleProfileSignup(firstName, lastName, fileName)
     .then((data) => {
       const arr = data.map((result) => (result.status === 'rejected'
         ? ({ ...result, value: result.reason })
-        : ({ ...result })
+        : result
       ));
       return arr;
     });
