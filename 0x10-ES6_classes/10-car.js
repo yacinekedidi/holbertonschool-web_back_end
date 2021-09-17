@@ -7,7 +7,7 @@ export default class Car {
 
   cloneCar() {
     return Object.assign(Object.create(this), {
-      ...new Car(undefined, undefined, undefined),
+      ...new Car(),
     });
   }
 }
