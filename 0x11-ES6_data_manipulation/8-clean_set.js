@@ -1,6 +1,7 @@
 export default function cleanSet(set, startString) {
-  if (!startString || typeof startString !== 'string') return '';
+  if (!startString || typeof startString !== 'string' || !set.size) return '';
   const arr = [];
+
   set.forEach((elem) => {
     if (elem.startsWith(startString)) {
       // eslint-disable-next-line nonblock-statement-body-position
