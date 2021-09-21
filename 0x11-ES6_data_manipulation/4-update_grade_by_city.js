@@ -10,7 +10,8 @@ export default function updateStudentGradeByCity(
       let grade = 'N/A';
       // eslint-disable-next-line array-callback-return
       newGrades.filter((studentGrade) => {
-        if (studentGrade.studentId === studentInCity.id) grade = grade.grade;
+        if (studentGrade.studentId === studentInCity.id)
+          grade = studentGrade.grade;
       });
       return { ...studentInCity, grade };
     });
