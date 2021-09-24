@@ -14,7 +14,7 @@ module.exports = function countStudents(path) {
         studentsByField[studArr.slice(-1)] = [];
       }
 
-      studentsByField[studArr.slice(-1)].push(studArr.slice(0, 1));
+      studentsByField[studArr.slice(-1)].push(studArr[0]);
     });
     Object.keys(studentsByField).forEach(
       (field) =>
