@@ -1,4 +1,7 @@
-const app = require('http');
+const http = require('http');
+
+const port = 1245;
+const host = '127.0.0.1';
 
 /* eslint-disable comma-dangle */
 async function countStudents(path) {
@@ -25,7 +28,7 @@ async function countStudents(path) {
 }
 
 const [dbPath] = process.argv.slice(-1);
-app
+const app = http
   .createServer((req, res) => {
     if (req.url === '/') res.end('Hello Holberton School!');
     if (req.url === '/students') {
@@ -45,6 +48,6 @@ app
       });
     }
   })
-  .listen(1245);
+  .listen(port, host, () => {});
 
 module.exports = app;
