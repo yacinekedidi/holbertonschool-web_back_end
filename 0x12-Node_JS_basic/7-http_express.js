@@ -10,7 +10,7 @@ async function countStudents(path) {
   try {
     const data = await fs.promises.readFile(path, { encoding: 'utf8' });
 
-    const students = data.trim('').split('\n').slice(1);
+    const students = data.trim().split('\n').slice(1);
     const studentsByField = {};
     students.forEach((student) => {
       const studArr = student.split(',');
@@ -28,23 +28,30 @@ async function countStudents(path) {
 }
 
 app.get('/', (req, res) => {
-  res.write('Hello Holberton School!');
+  res.end('Hello Holberton School!');
 });
 
 app.get('/students', (req, res) => {
   let str = '';
   let nbr = 0;
-  countStudents(dbPath).then((studentsByField) => {
-    Object.keys(studentsByField).forEach((field) => {
-      nbr += studentsByField[field].length;
-      str += `Number of students in ${field}: ${
-        studentsByField[field].length
-      }. List: ${studentsByField[field].join(', ')}\n`;
+  countStudents(dbPath)
+    .then((studentsByField) => {
+      Object.keys(studentsByField).forEach((field) => {
+        nbr += studentsByField[field].length;
+        str += `Number of students in ${field}: ${
+          studentsByField[field].length
+        }. List: ${studentsByField[field].join(', ')}\n`;
+      });
+      res.end(
+        `This is the list of our students\nNumber of students: ${nbr}\n${str.slice(
+          0,
+          -1
+        )}`
+      );
+    })
+    .catch((err) => {
+      res.end(`This is the list of our students\n${err.message}`);
     });
-    res.write('This is the list of our students\n');
-    res.write(`Number of students: ${nbr}\n`);
-    res.write(str);
-  });
 });
 
 app.listen(port, () => {
