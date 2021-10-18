@@ -1,5 +1,5 @@
 const chai = require("chai")
-const calculateNumber = require('./1-calcul_chai')
+const calculateNumber = require('./2-calcul_chai')
 
 describe('calculateNumber', () => {
     it('SUM', () => {
