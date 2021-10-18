@@ -12,12 +12,12 @@ describe('calculateNumber', () => {
     })
 
     it('SUBSTRACT', () => {
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5, 5), 0)
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5.7, 5), 1)
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5, 5.7), -1)
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5.4, 5.7), -1)
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5.7, 5.7), 0)
-        assert.strictEqual(calculateNumber("SUBSTRACT", 5, 5.3), 0)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5, 5), 0)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5.7, 5), 1)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5, 5.7), -1)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5.4, 5.7), -1)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5.7, 5.7), 0)
+        assert.strictEqual(calculateNumber("SUBTRACT", 5, 5.3), 0)
     })
 
   it('DIVIDE', () => {

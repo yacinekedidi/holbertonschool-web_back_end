@@ -5,7 +5,7 @@ function calculateNumber(type, a = 0, b = 0) {
         case "SUM":
             return x + y
             break;
-        case "SUBSTRACT":
+        case "SUBTRACT":
             return x - y
             break;
         case "DIVIDE":
